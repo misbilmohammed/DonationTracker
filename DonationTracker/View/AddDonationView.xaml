@@ -1,0 +1,122 @@
+﻿<UserControl
+    x:Class="DonationTracker.View.AddDonationView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:DonationTracker.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    Foreground="LightGray"
+    mc:Ignorable="d">
+    <Grid Width="500">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock
+            Grid.Row="0"
+            FontSize="24"
+            Foreground="LightGray"
+            Text="Add Donation" />
+
+        <Grid Grid.Row="1" Margin="0,14,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60" />
+                <ColumnDefinition Width="100" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="0"
+                Text="Amount" />
+            <TextBox
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="0,3,0,0"
+                Text="{Binding Amount}" />
+
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="10,0,0,0"
+                Text="Date" />
+            <DatePicker
+                Grid.Row="1"
+                Grid.Column="1"
+                Width="98"
+                Margin="10,3,0,0"
+                BorderThickness="0"
+                SelectedDate="{Binding Date}" />
+        </Grid>
+
+        <Grid Grid.Row="2" Margin="0,10,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="52" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="0"
+                Text="Charity" />
+            <ComboBox
+                x:Name="CharityCombo"
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="0,3,0,0"
+                ItemsSource="{Binding Charities}"
+                SelectedValue="{Binding Charity}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding LegalName}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="1"
+                Text="Private" />
+            <CheckBox
+                x:Name="Private"
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="10,0,0,0"
+                IsChecked="{Binding IsPrivate}">
+                <CheckBox.LayoutTransform>
+                    <ScaleTransform ScaleX="2" ScaleY="2" />
+                </CheckBox.LayoutTransform>
+            </CheckBox>
+        </Grid>
+        <StackPanel
+            Grid.Row="3"
+            Margin="0,20,0,0"
+            Orientation="Horizontal">
+            <Button
+                Width="60"
+                Height="30"
+                Command="{Binding SubmitCommand}"
+                Content="Submit" />
+            <Button
+                Width="60"
+                Margin="10,0,0,0"
+                Command="{Binding CancelCommand}"
+                Content="Cancel" />
+        </StackPanel>
+
+    </Grid>
+</UserControl>

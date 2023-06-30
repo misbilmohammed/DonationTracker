@@ -1,0 +1,135 @@
+﻿<Window
+    x:Class="DonationTracker.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:DonationTracker"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:view="clr-namespace:DonationTracker.View"
+    xmlns:viewmodel="clr-namespace:DonationTracker.ViewModel"
+    Width="1000"
+    Height="650"
+    MinWidth="700"
+    MinHeight="600"
+    AllowsTransparency="True"
+    Background="#36393F"
+    FontSize="12"
+    ResizeMode="CanResizeWithGrip"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="34" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Border
+            Grid.ColumnSpan="2"
+            Background="#252525"
+            MouseDown="BorderMouseDown">
+            <Grid HorizontalAlignment="Stretch">
+                <Label
+                    Margin="10,2,0,0"
+                    Content="Donation Tracker"
+                    FontSize="13"
+                    FontWeight="SemiBold"
+                    Foreground="Gray" />
+                <StackPanel
+                    Margin="0,0,12,0"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+                    <Button
+                        Width="20"
+                        Height="20"
+                        Margin="0,0,0,3"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Click="MinimiseWindowButton"
+                        Content="🗕"
+                        FontWeight="Bold"
+                        Foreground="Gray" />
+                    <Button
+                        Width="20"
+                        Height="20"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Click="MaximiseWindowButton"
+                        Content="☐"
+                        FontWeight="Bold"
+                        Foreground="Gray" />
+                    <Button
+                        Width="20"
+                        Height="20"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Click="CloseWindowButton"
+                        Content="✕"
+                        FontWeight="Bold"
+                        Foreground="Gray" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Grid
+            Grid.Row="1"
+            Height="100"
+            Margin="0,2,0,0"
+            VerticalAlignment="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Border
+                Margin="3,0,0,0"
+                Background="#252525"
+                CornerRadius="3">
+                <Label
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    Content="{Binding CurrentUser.Username}"
+                    FontWeight="Bold"
+                    Foreground="LightGray" />
+            </Border>
+            <Button
+                x:Name="AddDonation"
+                Grid.Row="1"
+                Click="ChangeViewButton"
+                Command="{Binding AddDonationViewCommand}"
+                Content="Add Donation"
+                Style="{StaticResource NavBarButton}"
+                Template="{DynamicResource NavBarButtonTemplate}" />
+            <Button
+                Grid.Row="2"
+                Click="ChangeViewButton"
+                Command="{Binding DonationsListingViewCommand}"
+                Content="Past Donations"
+                Style="{StaticResource NavBarButton}"
+                Template="{DynamicResource NavBarButtonTemplate}" />
+        </Grid>
+
+        <Grid
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="30,40,0,0"
+            HorizontalAlignment="Left">
+            <Grid.Resources>
+                <DataTemplate DataType="{x:Type viewmodel:AddDonationViewModel}">
+                    <view:AddDonationView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodel:DonationsListingViewModel}">
+                    <view:DonationsListingView />
+                </DataTemplate>
+            </Grid.Resources>
+
+            <ContentControl Content="{Binding CurrentViewModel}" />
+        </Grid>
+    </Grid>
+</Window>
